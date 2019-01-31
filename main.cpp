@@ -1,43 +1,48 @@
+
+#include <algorithm>
+#include <array>
 #include <iostream>
+#include <numeric>
 #include <string>
-
+using coordinates = std::array<double, 3>;
 using namespace std;
-class Point {
-private:
-  int x;
-  int y;
 
-public:
-  Point(int valueX, int valueY) {
-    x = valueX;
-    y = valueY;
+class VelocityVector {
+
+private:
+  coordinates Velocity;
+
+  int CheckVector() {
+    int sum = 0;
+    sum = accumulate(Velocity.begin(), Velocity.end(), 0);
+    return sum;
   }
-  int GetY() { return y; }
-  void SetY(int valueY) { y = valueY; }
-  int GetX() { return x; }
-  void SetX(int valueX) { x = valueX; }
-  void Show() { cout << "X= " << x << "\t Y = " << y << endl << endl; }
-};
-class CoffeGrinder {
-private:
-  bool CheckVoltage() { return false; }
 
 public:
-  void Start() {
+  VelocityVector() {
 
-    if (CheckVoltage()) {
-      cout << "Wjuuuh" << endl;
-
-    } else {
-      cout << "Beep Beep " << endl;
+    for (auto &point : Velocity) {
+      point = 0.0;
     }
   }
+  void SetVelocity_vector(coordinates Velocity) { // Как здесь прописать геттер для того чтобы изменять вектор ?
+    cout << " Set the points of vector";
+    this->Velocity=Velocity; //Если оставить так , то придется в функции вызова создавать переменную типа coordinates. Я думаю это не очень удобно
+    }
+
+  void ShowVector() {
+    for (auto point : Velocity) {
+      cout << point << endl;
+    }
+  }
+  void ShowLenght() {
+    double lenght = 0;
+    cout << CheckVector();
+  }
 };
-
 int main() {
-
-  Point a(5, 44);
-  a.Show();
-  Point b(77, 9);
-  b.Show();
+  VelocityVector a;
+  a.SetVelocity_vector ();
+  a.ShowVector();
+  a.ShowLenght();
 }
